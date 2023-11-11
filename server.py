@@ -2,11 +2,9 @@ from flask import Flask, request, jsonify, render_template
 # import model function 
 app = Flask(__name__)
 
-
 @app.route("/", methods=["GET"])
 def home():
     return render_template("index.html")
-
 
 @app.route("/data", methods=["POST"])
 def data():
