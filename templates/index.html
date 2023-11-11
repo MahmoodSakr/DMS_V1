@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flask Data Form</title>
+  </head>
+  <body>
+    <h2>Flask Demo DMC Form</h2>
+
+    <form id="dataForm">
+      <label for="prompt">Prompt:</label>
+      <input type="text" id="prompt" name="prompt" required /><br />
+
+      <label for="history">History Case Title:</label>
+      <input
+        type="text"
+        id="history_case_title"
+        name="history_case_title"
+        required
+      />
+      <br />
+
+      <label for="history">History Case Actions:</label>
+      <textarea
+        type="text"
+        id="history_case_actions"
+        name="history_case_actions"
+        required
+  >
+      </textarea
+      ><br />
+
+      <label for="system">Act As:</label>
+      <input type="text" id="system" name="system" required /> <br />
+
+      <label for="category">Category:</label>
+      <input type="text" id="category" name="category" required /><br />
+
+      <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+    <br />
+    <div id="response"></div>
+
+    <script>
+      async function submitForm() {
+        // Collect form data
+        var formData = {
+          prompt: document.getElementById("prompt").value,
+          history_case_title:
+            document.getElementById("history_case_title").value,
+          history_case_actions: document.getElementById("history_case_actions")
+            .value,
+          system: document.getElementById("system").value,
+          category: document.getElementById("category").value,
+        };
+
+        try {
+          // Send data to Flask endpoint using fetch
+          const response = await fetch("/data", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          });
+
+          const data = await response.json();
+
+          // Display JSON response on the page
+          document.getElementById("response").innerHTML =
+            "<h1>" + JSON.stringify(data) + "</h1>";
+        } catch (error) {
+          // Display error message on the page
+          document.getElementById("response").innerHTML =
+            "<h1>Error: " + JSON.stringify(error) + "</h1>";
+        }
+      }
+    </script>
+  </body>
+</html>
