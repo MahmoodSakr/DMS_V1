@@ -1,6 +1,4 @@
 from flask import Flask, request, jsonify, render_template
-from pyngrok import ngrok
-ngrok.set_auth_token("2Y2N4QWQtKc1upGj0TTLeP84pdv_6aKfX4LnpZyx5yTfFnzCJ")
 # import model function
 app = Flask(__name__)
 
@@ -31,7 +29,5 @@ def data():
 port = 5000
 if __name__ == "__main__":
     print("Running from module: ", __name__)
-    public_url = ngrok.connect(port).public_url 
-    print(f"Flask Server {public_url} globally running on port {port}")
-    # print("Flask Server is running on port", port)
+    print("Flask Server is running on port", port)
     app.run(port=port)
